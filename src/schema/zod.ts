@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"; // библиотека для валидации данных
 
 export const signInSchema = z.object({
     email: z.string()
