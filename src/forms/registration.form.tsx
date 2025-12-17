@@ -2,20 +2,28 @@
 
 import {Button, Form, Input} from '@heroui/react';
 import {FormEvent, useState} from "react";
+import {registerUser} from "@/actions/register";
 
 interface IProps {
     onClose: () => void
 }
 
 const RegistrationForm = ({onClose}: IProps) => {
-    const [formData, setFormData] = useState({email: '', password: '', confirmPassword: ''})
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        await registerUser(formData);
+        // костыль
+        window.location.reload();
         onClose();
     }
 

@@ -1,14 +1,12 @@
-// tailwind.config.js
-const {heroui} = require("@heroui/theme");
+import 'dotenv/config'
+import { defineConfig, env } from 'prisma/config';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./node_modules/@heroui/theme/dist/components/navbar.js",
-  ],
-  theme: {
-    extend: {},
+export default defineConfig({
+  schema: 'prisma/schema.prisma',
+  migrations: {
+    path: 'prisma/migrations',
   },
-  darkMode: "class",
-  plugins: [heroui()],
-};
+  datasource: {
+    url: env('DATABASE_URL'),
+  },
+});

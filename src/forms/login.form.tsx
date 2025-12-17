@@ -2,6 +2,7 @@
 
 import {Button, Form, Input} from '@heroui/react';
 import {FormEvent, useState} from "react";
+import {signInWithCredentials} from "@/actions/sign-in";
 
 interface IProps {
     onClose: () => void
@@ -10,8 +11,15 @@ interface IProps {
 const LoginForm = ({onClose}: IProps) => {
     const [formData, setFormData] = useState({email: '', password: '', confirmPassword: ''})
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        await signInWithCredentials(
+            formData.email,
+            formData.password
+        );
+        // костыль
+        window.location.reload();
+
         onClose();
     }
 
